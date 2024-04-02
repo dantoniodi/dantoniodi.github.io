@@ -1,9 +1,12 @@
 var chosenGen = 1;
 var chosenType = 0;
 var chosenForm = 'default';
+var chosenView = 'gif';
 const pokeContainer = document.querySelector('.container');
 const optGen = document.querySelector('#optGen');
 const optType = document.querySelector('#optType');
+const optForm = document.querySelector('#optForm');
+const optView = document.querySelector('#optView');
 const totalPkm = document.querySelector('.total');
 
 optGen.addEventListener('change', (event) => {
@@ -30,17 +33,21 @@ optType.addEventListener('change', (event) => {
     console.log("Type chosen: "+event.target.value)
 })
 
-if(document.querySelector('input[name="form"]')){
-    document.querySelectorAll('input[name="form"]').forEach((elem) => {
-        elem.addEventListener("click", function(event){
-            if(event.target.value != chosenForm) {
-                pokeContainer.innerHTML = ''
-                chosenForm = event.target.value
-                chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
-            }
-        })
-    })
-}
+optForm.addEventListener("click", function(event) {
+    if(event.target.value) {
+        pokeContainer.innerHTML = ''
+        chosenForm = event.target.value
+        chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
+    }
+})
+
+optView.addEventListener("click", function(event) {
+    if(event.target.value) {
+        pokeContainer.innerHTML = ''
+        chosenView = event.target.value
+        chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
+    }
+})
 
 //unused just for info
 const pokeGen = {
@@ -108,9 +115,9 @@ const createCard = (poke) => {
     card.classList.add('flip-card')
     card.style.order = poke.id
 
-    let img = poke.sprites.versions['generation-v']['black-white'].animated['front_'+chosenForm] || poke.sprites['front_'+chosenForm]
+    let img = chosenView == 'gif' ? poke.sprites.versions['generation-v']['black-white'].animated['front_'+chosenForm] || poke.sprites.other.showdown['front_'+chosenForm] || poke.sprites['front_'+chosenForm] : poke.sprites['front_'+chosenForm]
     let name = poke.species['name']
-    let number = poke.id.toString().padStart(5,'0')
+    let number = poke.id.toString().padStart(4,'0')
     let pokeTypes = poke.types.map(typeInfo => typeInfo.type.name)
     let abilities = poke.abilities.map(pokeAbs => pokeAbs.ability.name)
     let stats = poke.stats.map(pokeStats => pokeStats.base_stat)
