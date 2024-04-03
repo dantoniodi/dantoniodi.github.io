@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <link rel="manifest" href="./img/site.webmanifest">
     <title>Pokédex</title>
 </head>
 <body>
-    <div class="container"></div>
-        <h1 class="title">Pokédex</h1>
-        <div class="options">
+    <h1 class="title">Pokédex</h1>
+    <div class="options">
+        <div>
             <label for="optGen">Sort by:</label>
             <select id="optGen">
-                <option value="" disabled selected>Any Generation</option>
+                <option value="0" disabled selected>Any Generation</option>
                 <option value="1">Gen I</option>
                 <option value="2">Gen II</option>
                 <option value="3">Gen III</option>
@@ -25,7 +29,7 @@
             </select>
             <label for="optType">or</label>
             <select id="optType">
-                <option value="" disabled selected>Any Type</option>
+                <option value="0" disabled selected>Any Type</option>
                 <option value="1">Normal</option>
                 <option value="2">Fighting</option>
                 <option value="3">Flying</option>
@@ -45,16 +49,18 @@
                 <option value="17">Dark</option>
                 <option value="18">Fairy</option>
             </select>
-            <span class="total"></span>
-            <div class="radio">
-                <input type="radio" id="form1" name="form" value="default" checked>
-                <label for="form1">Normal</label>
-                <input type="radio" id="form2" name="form" value="shiny">
-                <label for="form2">Shiny</label>
-            </div>
         </div>
-        <ul class="pokedex"></ul>
+        <span class="total"></span>
+        <div class="radio" id="optView">
+            <input type="checkbox" id="sprite" name="sprite" value="gif" checked>
+            <label for="sprite">Animated</label>
+        </div>
+        <div class="radio" id="optForm">
+            <input type="checkbox" id="rarity" name="rarity" value="shiny">
+            <label for="rarity">Shiny</label>
+        </div>
     </div>
+    <div class="container"></div>
 </body>
 </html>
 <script src="main.js"></script>

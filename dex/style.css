@@ -27,8 +27,8 @@ h1 {
 
 .options {
     display: flex;
-    column-gap: 1rem;
-    margin-bottom: 20px;
+    column-gap: 3rem;
+    margin: 20px;
 }
 
 .container {
@@ -41,7 +41,7 @@ h1 {
 }
 
 .flip-card {
-    min-width: 160px;
+    min-width: 220px;
     min-height: 280px;
     perspective: 1000px;
     border-radius: 10px;
@@ -77,6 +77,16 @@ h1 {
   
 .back-card {
     transform: rotateY(180deg);
+}
+
+.back-card ul {
+    list-style: none;
+}
+
+.back-card li small {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    margin-left: 5px;
 }
 
 .image {
@@ -116,12 +126,13 @@ h1 {
 
 .name {
     margin: 13px 0 7px;
+    font-size: 1.5rem;
     letter-spacing: 1.5px;
     text-transform: capitalize;
 }
 
 .type {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: bolder;
     text-transform: uppercase;
 }

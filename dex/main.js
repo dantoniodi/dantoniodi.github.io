@@ -1,7 +1,7 @@
 var chosenGen = 1;
 var chosenType = 0;
-var chosenForm = 'default';
 var chosenView = 'gif';
+var chosenForm = 'default';
 const pokeContainer = document.querySelector('.container');
 const optGen = document.querySelector('#optGen');
 const optType = document.querySelector('#optType');
@@ -34,19 +34,15 @@ optType.addEventListener('change', (event) => {
 })
 
 optForm.addEventListener("click", function(event) {
-    if(event.target.value) {
-        pokeContainer.innerHTML = ''
-        chosenForm = event.target.value
-        chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
-    }
+    pokeContainer.innerHTML = ''
+    chosenForm = event.target.checked ? event.target.value : 'default'
+    chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
 })
 
 optView.addEventListener("click", function(event) {
-    if(event.target.value) {
-        pokeContainer.innerHTML = ''
-        chosenView = event.target.value
-        chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
-    }
+    pokeContainer.innerHTML = ''
+    chosenView = event.target.checked ? event.target.value : 'png'
+    chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
 })
 
 //unused just for info
@@ -121,6 +117,7 @@ const createCard = (poke) => {
     let pokeTypes = poke.types.map(typeInfo => typeInfo.type.name)
     let abilities = poke.abilities.map(pokeAbs => pokeAbs.ability.name)
     let stats = poke.stats.map(pokeStats => pokeStats.base_stat)
+    let total = stats.reduce((a, b) => a + b, 0)
     let color = pokeColors[pokeTypes[0]]
     var txtAbs = '';
     
@@ -145,18 +142,21 @@ const createCard = (poke) => {
             <div class="info">
                 <span class="number">#${number}</span>
                 <h3 class="name">${name}</h3>
-                <small class="type">${pokeTypes.join(' - ')}</small>
+                <small class="type">${pokeTypes.join(' • ')}</small>
             </div>
         </div>
         <div class="back-card">
             <h3>Abilities:</h3>${txtAbs}<br>
             <h3>Base Stats:</h3>
-            <p><small>HP: </small>${stats[0]}</p>
-            <p><small>Attack: </small>${stats[1]}</p>
-            <p><small>Defense: </small>${stats[2]}</p>
-            <p><small>Sp. Attack: </small>${stats[3]}</p>
-            <p><small>Sp. Defense: </small>${stats[4]}</p>
-            <p><small>Speed: </small>${stats[5]}</p>
+            <ul>
+                <li>${stats[0]}<small> HP</small></li>
+                <li>${stats[1]}<small> Attack</small></li>
+                <li>${stats[2]}<small> Defense</small></li>
+                <li>${stats[3]}<small> Sp. Attack</small></li>
+                <li>${stats[4]}<small> Sp. Defense</small></li>
+                <li>${stats[5]}<small> Speed</small></li>
+                <li>${total}<small> Total</small></li>
+            </ul>
         </div>
     </div>`
     
