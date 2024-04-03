@@ -15,20 +15,33 @@ body {
     justify-content: center;
 }
 
-h1 { 
+.title {
     letter-spacing: 5px;
-    margin: 20px;
+    margin: 0 20px;
+    padding: 20px;
     font-size: 44px;
+    float: left;
 }
+
+.header {
+    display: inline-block;
+    width: 100%;
+}
+
+.header a { text-decoration: none; }
+.header small { font-size: small; }
 
 .radio {
     display: inline-block;
 }
 
 .options {
+    float: right;
     display: flex;
     column-gap: 3rem;
-    margin: 20px;
+    margin: 0 20px;
+    padding: 20px;
+    line-height: 50px;
 }
 
 .container {
@@ -37,7 +50,8 @@ h1 {
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-    max-width: 1200px;
+    padding: 0 20px;
+    /* max-width: 1600px; */
 }
 
 .flip-card {
