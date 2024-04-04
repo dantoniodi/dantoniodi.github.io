@@ -8,7 +8,7 @@ const orderBy = document.querySelector('#orderBy');
 const totalPkm = document.querySelector('.total');
 
 //global variables
-var chosenGen = optGen.selectedIndex;
+var chosenGen = 1;
 var chosenType = 0;
 var chosenView = optView.checked ? 'animated' : 'static';
 var chosenForm = optForm.checked ? 'shiny' : 'default';
@@ -22,7 +22,6 @@ optGen.addEventListener('change', (event) => {
         getByGen(chosenGen)
     }
 });
-
 optType.addEventListener('change', (event) => {
     if(event.target.value != chosenType) {
         chosenType = event.target.value
@@ -96,7 +95,6 @@ const getByType = async(id) => {
 }
 
 const fetchPokemons = (list) => {
-    console.log(list);
     if (Array.isArray(list)) {
         if(orderBy.value == 'name') {
             list.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
