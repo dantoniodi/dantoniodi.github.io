@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A new way to filter Pokémon.">
+    <title>Dex.JS - Modern Pokédex</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <link rel="manifest" href="./img/site.webmanifest">
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">Dex.JS <small>made with</small> <a href="https://pokeapi.co" target="_blank">PokéAPI</a></h1>
+        <div class="options">
+            <div>
+                <label for="optGen">Sort by:</label>
+                <select id="optGen">
+                    <option value="0" disabled selected>Any Generation</option>
+                    <option value="1">Generation I</option>
+                    <option value="2">Generation II</option>
+                    <option value="3">Generation III</option>
+                    <option value="4">Generation IV</option>
+                    <option value="5">Generation V</option>
+                    <option value="6">Generation VI</option>
+                    <option value="7">Generation VII</option>
+                    <option value="8">Generation VIII</option>
+                    <option value="9">Generation IX</option>
+                </select>
+                <label for="optType">or</label>
+                <select id="optType">
+                    <option value="0" disabled selected>Any Type</option>
+                    <option value="1">Normal</option>
+                    <option value="2">Fighting</option>
+                    <option value="3">Flying</option>
+                    <option value="4">Poison</option>
+                    <option value="5">Ground</option>
+                    <option value="6">Rock</option>
+                    <option value="7">Bug</option>
+                    <option value="8">Ghost</option>
+                    <option value="9">Steel</option>
+                    <option value="10">Fire</option>
+                    <option value="11">Water</option>
+                    <option value="12">Grass</option>
+                    <option value="13">Electric</option>
+                    <option value="14">Psychic</option>
+                    <option value="15">Ice</option>
+                    <option value="16">Dragon</option>
+                    <option value="17">Dark</option>
+                    <option value="18">Fairy</option>
+                </select>
+            </div>
+            <div>
+                <label for="orderBy">Order By:</label>
+                <select id="orderBy">
+                    <option value="number" selected>Number</option>
+                    <option value="name">Name</option>
+                    <option value="power">Power</option>
+                </select>
+            </div>
+            <span class="total"></span>
+            <div id="sprites" class="radio">
+                <label for="sprites">Sprites:</label>
+                <input type="checkbox" id="optView" name="sprite" value="animated" checked>
+                <label for="optView">Animated</label>
+                <input type="checkbox" id="optForm" name="rarity" value="shiny">
+                <label for="optForm">Shiny</label>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="scrollContainer"></div>
+</body>
+</html>
+<script>
+    const container = document.getElementById('scrollContainer');
+    container.addEventListener('wheel', function(event) {
+        console.log(container.scrollWidth, container.clientWidth);
+        if (event.deltaY > 0) {
+            container.scrollBy({ left: container.clientWidth, behavior: 'smooth'});
+        } else {
+            container.scrollBy({ left: -container.clientWidth, behavior: 'smooth'});
+        }
+    });
+</script>
+<script src="main.js"></script>
