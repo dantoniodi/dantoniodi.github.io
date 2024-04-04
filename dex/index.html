@@ -7,29 +7,29 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
-    <link rel="manifest" href="./img/site.webmanifest">
-    <title>Pokédex</title>
+    <!-- <link rel="manifest" href="./img/site.webmanifest"> -->
+    <title>Dex.JS - Modern Pokédex</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
     </style>
 </head>
 <body>
     <div class="header">
-        <h1 class="title">Dex <small>made with</small> <a href="https://pokeapi.co" target="_blank">PokéAPI</a></h1>
+        <h1 class="title">Dex.JS <small>made with</small> <a href="https://pokeapi.co" target="_blank">PokéAPI</a></h1>
         <div class="options">
             <div>
                 <label for="optGen">Sort by:</label>
                 <select id="optGen">
-                    <option value="0" disabled selected>Any Generation</option>
-                    <option value="1">Gen I</option>
-                    <option value="2">Gen II</option>
-                    <option value="3">Gen III</option>
-                    <option value="4">Gen IV</option>
-                    <option value="5">Gen V</option>
-                    <option value="6">Gen VI</option>
-                    <option value="7">Gen VII</option>
-                    <option value="8">Gen VIII</option>
-                    <option value="9">Gen IX</option>
+                    <option value="0" disabled>Any Generation</option>
+                    <option value="1" selected>Generation I</option>
+                    <option value="2">Generation II</option>
+                    <option value="3">Generation III</option>
+                    <option value="4">Generation IV</option>
+                    <option value="5">Generation V</option>
+                    <option value="6">Generation VI</option>
+                    <option value="7">Generation VII</option>
+                    <option value="8">Generation VIII</option>
+                    <option value="9">Generation IX</option>
                 </select>
                 <label for="optType">or</label>
                 <select id="optType">
@@ -52,6 +52,14 @@
                     <option value="16">Dragon</option>
                     <option value="17">Dark</option>
                     <option value="18">Fairy</option>
+                </select>
+            </div>
+            <div>
+                <label for="orderBy">Order By:</label>
+                <select id="orderBy">
+                    <option value="number" selected>Number</option>
+                    <option value="name">Name</option>
+                    <option value="power">Power</option>
                 </select>
             </div>
             <span class="total"></span>

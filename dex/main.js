@@ -7,10 +7,10 @@ const optGen = document.querySelector('#optGen');
 const optType = document.querySelector('#optType');
 const optForm = document.querySelector('#optForm');
 const optView = document.querySelector('#optView');
+const orderBy = document.querySelector('#orderBy');
 const totalPkm = document.querySelector('.total');
 
 optGen.addEventListener('change', (event) => {
-    console.log("Last gen: "+chosenGen)
     if(event.target.value != chosenGen) {
         while (pokeContainer.firstChild) pokeContainer.removeChild(pokeContainer.firstChild)
         chosenGen = event.target.value
@@ -18,11 +18,9 @@ optGen.addEventListener('change', (event) => {
         chosenType = 0
         getByGen(chosenGen)
     }
-    console.log("Gen chosen: "+event.target.value)
 })
 
 optType.addEventListener('change', (event) => {
-    console.log("Last type: "+chosenType)
     if(event.target.value != chosenType) {
         while (pokeContainer.firstChild) pokeContainer.removeChild(pokeContainer.firstChild)
         chosenType = event.target.value
@@ -30,7 +28,6 @@ optType.addEventListener('change', (event) => {
         chosenGen = 0
         getByType(chosenType)
     }
-    console.log("Type chosen: "+event.target.value)
 })
 
 optForm.addEventListener("change", function(event) {
@@ -42,6 +39,11 @@ optForm.addEventListener("change", function(event) {
 optView.addEventListener("change", function(event) {
     pokeContainer.innerHTML = ''
     chosenView = event.target.checked ? event.target.value : 'png'
+    chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
+})
+
+orderBy.addEventListener("change", function(event) {
+    pokeContainer.innerHTML = ''
     chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
 })
 
@@ -91,13 +93,16 @@ const getByType = async(id) => {
     let url = 'https://pokeapi.co/api/v2/type/'+id
     let resp = await fetch(url)
     let data = await resp.json()
-    fetchPokemons(data.pokemon)
+    fetchPokemons(data.pokemon.map(pkm => pkm.pokemon))
 }
 
 const fetchPokemons = (list) => {
     if (Array.isArray(list)) {
+        if(orderBy.value == 'name') {
+            list.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        }
         list.forEach(pkm => {
-            let pid = parseInt(pkm.url.split('/')[6]) || pkm.name;
+            let pid = pkm.url.includes('pokemon-species') ? pkm.name : pkm.url.split('/')[6];
             fetch(getUrl(pid))
             .then(totalPkm.innerHTML = "Loading...")
             .then(resp => resp.json())
@@ -114,9 +119,8 @@ const getUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}`
 const createCard = (poke) => {
     const card = document.createElement('div')
     card.classList.add('flip-card')
-    card.style.order = poke.id
 
-    let img = chosenView == 'gif' ? poke.sprites.versions['generation-v']['black-white'].animated['front_'+chosenForm] || poke.sprites.other.showdown['front_'+chosenForm] || poke.sprites['front_'+chosenForm] : poke.sprites['front_'+chosenForm]
+    let img = chosenView == 'gif' ? poke.sprites.versions['generation-v']['black-white'].animated['front_'+chosenForm] || poke.sprites.other.showdown['front_'+chosenForm] || poke.sprites.other.home['front_'+chosenForm] : poke.sprites['front_'+chosenForm] || poke.sprites.other.home['front_'+chosenForm]
     let name = poke.species['name']
     let number = poke.id.toString().padStart(4,'0')
     let pokeTypes = poke.types.map(typeInfo => typeInfo.type.name)
@@ -125,6 +129,8 @@ const createCard = (poke) => {
     let total = stats.reduce((a, b) => a + b, 0)
     let color = pokeColors[pokeTypes[0]]
     var txtAbs = '';
+
+    card.style.order = orderBy.value == 'number' ? poke.id : orderBy.value == 'power' ? -total : null
     
     if(pokeTypes.length > 1) {
         let secondColor = pokeColors[pokeTypes[1]]
@@ -140,12 +146,13 @@ const createCard = (poke) => {
     card.innerHTML = `
     <div class="inner-card">
         <div class="front-card">
+            <small class="number" style="float:left">#${number}</small>
+            <small style="float:right">✨ <b>${total}</b></small>
             <div class="image">
                 <span class="middle"></span>
-                <img src="${img}" alt="pkm-img">
+                <img src="${img}" alt="img-not-found">
             </div>
             <div class="info">
-                <span class="number">#${number}</span>
                 <h3 class="name">${name}</h3>
                 <small class="type">${pokeTypes.join(' • ')}</small>
             </div>
@@ -154,14 +161,13 @@ const createCard = (poke) => {
             <h3>Abilities:</h3>${txtAbs}<br>
             <h3>Base Stats:</h3>
             <ul>
-                <li><small>HP </small>${stats[0]}</li>
-                <li><small>Attack </small>${stats[1]}</li>
-                <li><small>Defense </small>${stats[2]}</li>
-                <li>${stats[5]}<small> Speed</small></li>
-                <li>${stats[3]}<small> Sp. Atk</small></li>
-                <li>${stats[4]}<small> Sp. Def</small></li>
+                <li><small>HP </small>${stats[0]} 💗</li>
+                <li><small>Attack </small>${stats[1]} 🔱</li>
+                <li><small>Defense </small>${stats[2]} 💠</li>
+                <li>⚡ ${stats[5]}<small> Speed</small></li>
+                <li>🔮 ${stats[3]}<small> Sp. Atk</small></li>
+                <li>🌀 ${stats[4]}<small> Sp. Def</small></li>
             </ul>
-            <span class="total">${total}<small> Total</small></span>
         </div>
     </div>`
     
