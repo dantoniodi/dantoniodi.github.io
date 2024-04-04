@@ -33,13 +33,13 @@ optType.addEventListener('change', (event) => {
     console.log("Type chosen: "+event.target.value)
 })
 
-optForm.addEventListener("click", function(event) {
+optForm.addEventListener("change", function(event) {
     pokeContainer.innerHTML = ''
     chosenForm = event.target.checked ? event.target.value : 'default'
     chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
 })
 
-optView.addEventListener("click", function(event) {
+optView.addEventListener("change", function(event) {
     pokeContainer.innerHTML = ''
     chosenView = event.target.checked ? event.target.value : 'png'
     chosenType != 0 ? getByType(chosenType) : getByGen(chosenGen)
@@ -67,7 +67,7 @@ const pokeColors = {
     rock: 'saddlebrown',
     fairy: 'pink',
     ghost: 'slateblue',
-    poison: 'purple',
+    poison: 'darkorchid',
     bug: 'olive',
     dragon: 'teal',
     psychic: 'plum',
@@ -94,14 +94,19 @@ const getByType = async(id) => {
     fetchPokemons(data.pokemon)
 }
 
-const fetchPokemons = (x) => {
-    for (var t = 0; t < x.length; t++) {
-        fetch(getUrl(x[t].name || x[t].pokemon.name))
-        .then(totalPkm.innerHTML = "Loading...")
-        .then(resp => resp.json())
-        .then(json => createCard(json))
+const fetchPokemons = (list) => {
+    if (Array.isArray(list)) {
+        list.forEach(pkm => {
+            let pid = parseInt(pkm.url.split('/')[6]) || pkm.name;
+            fetch(getUrl(pid))
+            .then(totalPkm.innerHTML = "Loading...")
+            .then(resp => resp.json())
+            .then(json => createCard(json))      
+        });
+        totalPkm.innerHTML = "Total: "+list.length;
+    } else {
+        totalPkm.innerHTML = "Total: 0";
     }
-    totalPkm.innerHTML = "Total: "+t;
 }
 
 const getUrl = id => `https://pokeapi.co/api/v2/pokemon/${id}`
@@ -137,7 +142,7 @@ const createCard = (poke) => {
         <div class="front-card">
             <div class="image">
                 <span class="middle"></span>
-                <img src="${img}" alt="${name}">
+                <img src="${img}" alt="pkm-img">
             </div>
             <div class="info">
                 <span class="number">#${number}</span>
@@ -149,14 +154,14 @@ const createCard = (poke) => {
             <h3>Abilities:</h3>${txtAbs}<br>
             <h3>Base Stats:</h3>
             <ul>
-                <li>${stats[0]}<small> HP</small></li>
-                <li>${stats[1]}<small> Attack</small></li>
-                <li>${stats[2]}<small> Defense</small></li>
-                <li>${stats[3]}<small> Sp. Attack</small></li>
-                <li>${stats[4]}<small> Sp. Defense</small></li>
+                <li><small>HP </small>${stats[0]}</li>
+                <li><small>Attack </small>${stats[1]}</li>
+                <li><small>Defense </small>${stats[2]}</li>
                 <li>${stats[5]}<small> Speed</small></li>
-                <li>${total}<small> Total</small></li>
+                <li>${stats[3]}<small> Sp. Atk</small></li>
+                <li>${stats[4]}<small> Sp. Def</small></li>
             </ul>
+            <span class="total">${total}<small> Total</small></span>
         </div>
     </div>`
     

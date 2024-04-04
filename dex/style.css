@@ -6,7 +6,7 @@
 }
 
 body {
-    background: linear-gradient(to right, #d4d3dd, #efefbb);
+    background: linear-gradient(to right, lavender, aliceblue);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,7 +16,6 @@ body {
 .title {
     letter-spacing: 5px;
     margin: 0 20px;
-    padding: 20px;
     font-size: 44px;
     float: left;
 }
@@ -24,6 +23,7 @@ body {
 .header {
     display: inline-block;
     width: 100%;
+    padding: 15px;
 }
 
 .header a { text-decoration: none; }
@@ -38,28 +38,26 @@ body {
     display: flex;
     column-gap: 3rem;
     margin: 0 20px;
-    padding: 20px;
     line-height: 50px;
 }
 
 .container {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
+    flex-direction: row;
     padding: 0 20px;
     /* max-width: 1600px; */
 }
 
 .flip-card {
-    min-width: 220px;
-    min-height: 280px;
-    perspective: 1000px;
+    min-height: 260px;
     border-radius: 10px;
     margin: 10px;
     padding: 20px;
     text-align: center;
+    flex-basis: 260px;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .flip-card:hover {
@@ -92,10 +90,19 @@ body {
 }
 
 .back-card ul {
+    text-align: left;
     list-style: none;
+    columns: 2;
+    column-gap: 15px;
+    margin: 10px 0;
+    line-height: 20px;
 }
 
-.back-card li small {
+.back-card li:nth-child(-n+3) { text-align: end; }
+.back-card li small:nth-child(-n+3) { margin-right: 5px; }
+.back-card .total { margin-left: 30px; }
+
+.back-card small {
     font-size: 0.6rem;
     text-transform: uppercase;
     margin-left: 5px;
@@ -124,16 +131,17 @@ body {
 }
 
 .info {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .number {
     background-color: rgba(0, 0, 0, 0.15);
     padding: 2px 10px;
     border-radius: 10px;
+    letter-spacing: 1.5px;
     font-size: 0.75rem;
     font-weight: bolder;
-    letter-spacing: 1.5px;
+    text-transform: capitalize;
 }
 
 .name {
