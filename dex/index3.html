@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="A new way to filter Pokémon.">
     <title>Dex.JS - Modern Pokédex</title>
     <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
     <link rel="manifest" href="./img/site.webmanifest">
+    <link rel="stylesheet" href="bootstrap.css"">
     <link rel="stylesheet" href="style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
     </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7933584697720588" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="header">
         <h1 class="title">Dex.JS <small>made with</small> <a href="https://pokeapi.co" target="_blank">PokéAPI</a></h1>
         <div class="options">
-            <div>
-                <label for="optGen">Sort by:</label>
-                <select id="optGen">
+            <div class="form-inline">
+                <label for="optGen" class="mr-3">Sort by:</label>
+                <select id="optGen" class="form-control form-control-sm">
                     <option value="0" disabled selected>Any Generation</option>
                     <option value="1">Generation I</option>
                     <option value="2">Generation II</option>
@@ -33,8 +33,8 @@
                     <option value="8">Generation VIII</option>
                     <option value="9">Generation IX</option>
                 </select>
-                <label for="optType">or</label>
-                <select id="optType">
+                <label for="optType" class="mx-3">or</label>
+                <select id="optType" class="form-control form-control-sm">
                     <option value="0" disabled selected>Any Type</option>
                     <option value="1">Normal</option>
                     <option value="2">Fighting</option>
@@ -56,21 +56,25 @@
                     <option value="18">Fairy</option>
                 </select>
             </div>
-            <div>
-                <label for="orderBy">Order By:</label>
-                <select id="orderBy">
+            <div class="form-inline">
+                <label for="orderBy" class="mr-3">Order By:</label>
+                <select id="orderBy" class="form-control form-control-sm">
                     <option value="number" selected>Number</option>
                     <option value="name">Name</option>
                     <option value="power">Power</option>
                 </select>
             </div>
             <span class="total"></span>
-            <div id="sprites" class="radio">
-                <label for="sprites">Sprites:</label>
-                <input type="checkbox" id="optView" name="sprite" value="animated" checked>
-                <label for="optView">Animated</label>
-                <input type="checkbox" id="optForm" name="rarity" value="shiny">
-                <label for="optForm">Shiny</label>
+            <label for="sprites">Sprites:</label>
+            <div id="sprites" class="form-inline radio">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="optView" name="sprite" value="animated" checked>
+                    <label for="optView" class="custom-control-label">Animated</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="optForm" name="rarity" value="shiny">
+                    <label for="optForm" class="custom-control-label">Shiny</label>
+                </div>
             </div>
         </div>
     </div>
